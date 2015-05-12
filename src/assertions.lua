@@ -124,7 +124,7 @@ local function has_error(state, arguments)
   local func = arguments[1]
   local err_expected = arguments[2]
   assert(util.callable(func), s("assertion.internal.badargtype", { "error", "function, or callable object", type(func) }))
-  local ok, err_actual = pcall(func)
+  local ok, err_actual = pcall(func, table.unpack(arguments,3,arguments.n))
   if type(err_actual) == 'string' then
     -- remove 'path/to/file:line: ' from string
     err_actual = err_actual:gsub('^.-:%d+: ', '', 1)
